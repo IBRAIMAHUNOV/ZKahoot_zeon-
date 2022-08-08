@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import UserModels
+# from django.contrib.auth.models import Group
 
 
 @admin.register(UserModels)
@@ -10,8 +11,8 @@ class UserAdmin(admin.ModelAdmin):
 
     search_fields = ['username', 'group', 'phone_number']
 
-    class Meta:
-        model = UserModels
+    # class Meta:
+    #     model = UserModels
     # list_filter = ('Date Created', 'Date Updated')
 
 

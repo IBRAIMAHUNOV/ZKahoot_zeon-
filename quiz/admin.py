@@ -15,18 +15,20 @@ class QuestionInline(nested_admin.NestedTabularInline):
     extra = 5
 
 
-class QuizAdmin(nested_admin.NestedModelAdmin):
-    inlines = [QuestionInline,]
-
-
 class UserAnswerInline(admin.TabularInline):
     model = UsersAnswer
+
+
+class QuizAdmin(nested_admin.NestedModelAdmin):
+    inlines = [QuestionInline,]
 
 
 class QuizTakersAdmin(admin.ModelAdmin):
     inlines = [UserAnswerInline, ]
 
 
-admin.site.register(Quiz)
-admin.site.register(QuizTaker, QuizTakersAdmin)
+admin.site.register(Quiz, QuizAdmin)
+admin.site.register(Question)
+admin.site.register(Answer)
 admin.site.register(UsersAnswer)
+admin.site.register(QuizTaker, QuizTakersAdmin)
