@@ -52,18 +52,7 @@ INSTALLED_APPS = (
 
 )
 
-# SWAGGER_SETTINGS = {
-#     'DEFAULT_FIELD_INSPECTORS': [
-#         'drf_yasg.inspectors.CamelCaseJSONFilter',
-#         'drf_yasg.inspectors.InlineSerializerInspector',
-#         'drf_yasg.inspectors.RelatedFieldInspector',
-#         'drf_yasg.inspectors.ChoiceFieldInspector',
-#         'drf_yasg.inspectors.FileFieldInspector',
-#         'drf_yasg.inspectors.DictFieldInspector',
-#         'drf_yasg.inspectors.SimpleFieldInspector',
-#         'drf_yasg.inspectors.StringDefaultFieldInspector',
-#     ],
-# }
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -171,7 +160,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 AUTH_USER_MODEL = 'fastest.UserModels'
 AUTH_USER_MODELL = 'fastest.CustomUserManager'
