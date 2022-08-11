@@ -3,7 +3,6 @@ from rest_framework.response import Response
 from .serializers import  UserSerializer, RegisterSerializer
 
 
-# Register API
 class RegisterApi(generics.GenericAPIView):
     serializer_class = RegisterSerializer
 

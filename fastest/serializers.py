@@ -18,7 +18,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         username = User.objects.create_user(validated_data['username'],
                                             email=validated_data['email'],
                                             password=validated_data['password'])
-
         return username
 
 
@@ -57,4 +56,4 @@ class UserSerializer(serializers.ModelSerializer):
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
-        fields = ['url', 'name']
+        fields = ['id', 'name']

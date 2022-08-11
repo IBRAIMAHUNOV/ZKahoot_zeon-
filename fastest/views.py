@@ -1,6 +1,7 @@
 from django.contrib.auth.models import Group
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, permissions, generics
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView
 from fastest.serializers import UserSerializer, GroupSerializer
 from .serializers import LoginSerializer
@@ -19,15 +20,17 @@ class LoginAPIView(APIView):
         serializer.is_valid(raise_exception=True)
 
 
-# class UserViewSet(viewsets.ModelViewSet):
-#     """Конечная точка API, которая позволяет пользователям менять, просматривать"""
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-#     permissions_classes = [permissions.IsAuthenticated]
-#
-#
-# class GroupViewSet(viewsets.ModelViewSet):f
-#     """Конечная точка API, которая позволяет группам менять, просматривать"""
-#     queryset = Group.objects.all()
-#     serializer_class = GroupSerializer
-#     permission_classes = [permissions.IsAuthenticated]
+class UsersList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+    search_fields = '__all__'
+    # filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+    # filterset_fields = ['groups']
+
+
+class GroupsList(generics.ListAPIView):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+    permission_classes = [IsAuthenticated]
+    search_fields = 'name'

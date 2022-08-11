@@ -9,10 +9,11 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 from datetime import timedelta
-
+import django_heroku
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,7 +27,7 @@ SECRET_KEY = 'django-insecure-0=m52p&-x1mp#3$ibghlwn%1$(r*elc0ixt3%^)o!pum7d_x=z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,6 +40,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework_swagger',
+    'drf_yasg',
     'fastest.apps.FastestConfig',
     'phonenumber_field',
     'rest_framework',
@@ -46,10 +49,21 @@ INSTALLED_APPS = (
     'rest_framework.authtoken',
     'nested_admin',
     'quiz.apps.QuizConfig',
-    'rest_framework_swagger'
+
 )
 
-
+# SWAGGER_SETTINGS = {
+#     'DEFAULT_FIELD_INSPECTORS': [
+#         'drf_yasg.inspectors.CamelCaseJSONFilter',
+#         'drf_yasg.inspectors.InlineSerializerInspector',
+#         'drf_yasg.inspectors.RelatedFieldInspector',
+#         'drf_yasg.inspectors.ChoiceFieldInspector',
+#         'drf_yasg.inspectors.FileFieldInspector',
+#         'drf_yasg.inspectors.DictFieldInspector',
+#         'drf_yasg.inspectors.SimpleFieldInspector',
+#         'drf_yasg.inspectors.StringDefaultFieldInspector',
+#     ],
+# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -63,6 +77,10 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'wakanda.urls'
 
+
+SWAGGER_SETTINGS = {
+    'VALIDATOR_URL': 'http://localhost:8189',
+}
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -85,6 +103,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ],
+    'DEFAULT_SCHEMA_CLASS':
+        'rest_framework.schemas.coreapi.AutoSchema',
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework.pagination.PageNumberPagination',
         'PAGE_SIZE':  10
@@ -115,7 +135,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
@@ -138,7 +157,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-Ru'
 
 TIME_ZONE = 'UTC'
 
@@ -151,11 +170,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 AUTH_USER_MODEL = 'fastest.UserModels'
 AUTH_USER_MODELL = 'fastest.CustomUserManager'
 AUTH_USER_EMAIL_UNIQUE = True
 
+django_heroku.settings(locals())
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
