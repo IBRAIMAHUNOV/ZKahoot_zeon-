@@ -22,7 +22,7 @@ class UserModels(AbstractUser):
     rating_group = models.IntegerField(default=0, null=True, blank=True, validators=[MinValueValidator(1)])
     rating_global = models.PositiveIntegerField(null=True, blank=True, validators=[MinValueValidator(1)])
     is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']

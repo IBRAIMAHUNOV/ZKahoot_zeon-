@@ -2,10 +2,6 @@ from django.contrib import admin
 from .models import UserModels, Group
 # from nested_inline.admin import NestedModelAdmin
 
-
-# from django.contrib.auth.models import Group
-
-
 @admin.register(UserModels)
 class UserAdmin(admin.ModelAdmin):
     list_display = ['username', 'groups', 'email',
